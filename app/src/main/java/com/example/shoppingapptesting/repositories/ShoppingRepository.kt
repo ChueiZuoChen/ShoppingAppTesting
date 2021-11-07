@@ -3,8 +3,7 @@ package com.example.shoppingapptesting.repositories
 import androidx.lifecycle.LiveData
 import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
-import com.example.shoppingapptesting.other.NetworkResult
-import retrofit2.Response
+import com.example.shoppingapptesting.other.Resource
 
 
 /**
@@ -27,5 +26,5 @@ interface ShoppingRepository {
 
     fun observeTotalPrice():LiveData<Float>
 
-    suspend fun searchForImage(imageQuery:String): NetworkResult<ImageResponse>
+    suspend fun searchForImage(imageQuery:String): Resource<ImageResponse>
 }

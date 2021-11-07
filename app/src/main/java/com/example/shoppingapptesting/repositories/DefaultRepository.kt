@@ -5,7 +5,7 @@ import com.example.shoppingapptesting.data.local.ShoppingDao
 import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.PixabayAPI
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
-import com.example.shoppingapptesting.other.NetworkResult
+import com.example.shoppingapptesting.other.Resource
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -32,18 +32,18 @@ class DefaultRepository @Inject constructor(
         return shoppingDao.observeTotalPrice()
     }
 
-    override suspend fun searchForImage(imageQuery: String): NetworkResult<ImageResponse> {
+    override suspend fun searchForImage(imageQuery: String): Resource<ImageResponse> {
         return try {
             val response = pixabayAPI.searchForImage(imageQuery)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    return@let NetworkResult.OnSuccess(it)
-                } ?: NetworkResult.OnFailure("An unknown occurred", null)
+                    return@let Resource.OnSuccess(it)
+                } ?: Resource.OnFailure("An unknown occurred", null)
             } else {
-                NetworkResult.OnFailure("An unknown occurred", null)
+                Resource.OnFailure("An unknown occurred", null)
             }
         } catch (e: Exception) {
-            NetworkResult.OnFailure("Cannot connection internet", null)
+            Resource.OnFailure("Cannot connection internet", null)
         }
     }
 

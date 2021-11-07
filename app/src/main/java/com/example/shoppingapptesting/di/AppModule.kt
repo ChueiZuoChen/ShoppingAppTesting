@@ -8,6 +8,8 @@ import com.example.shoppingapptesting.data.local.ShoppingDao
 import com.example.shoppingapptesting.data.local.ShoppingItemDatabase
 import com.example.shoppingapptesting.data.remote.PixabayAPI
 import com.example.shoppingapptesting.other.Constants
+import com.example.shoppingapptesting.repositories.DefaultRepository
+import com.example.shoppingapptesting.repositories.ShoppingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,9 +25,8 @@ object AppModule {
 
     /**
      * through dagger-hilt dependencies injection,
-     * I can provide the database instance,dao instance and Retrofit api instance for dependencies injection
+     * I can provide the database instance,dao instance, Retrofit api instance, ViewModel instance for dependencies injection
      * */
-
     @Provides
     @Singleton
     fun provideShoppingItemDatabase(
@@ -44,14 +45,27 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePixabayApi():PixabayAPI = Retrofit.Builder()
+    fun providePixabayApi(): PixabayAPI = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(Constants.BASE_URL)
         .build()
         .create(PixabayAPI::class.java)
 
-
+    /**
+     * in the Shopping viewmodel needs ShoppingRepository
+     * also for create DefaultRepository instance, I need dao and api
+     * */
+    @Provides
+    @Singleton
+    fun provideDefaultShoppingRepository(
+        dao: ShoppingDao,
+        api: PixabayAPI
+    ) = DefaultRepository(dao, api) as ShoppingRepository
 }
+
+
+
+
 
 
 

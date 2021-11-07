@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
-import com.example.shoppingapptesting.other.NetworkResult
+import com.example.shoppingapptesting.other.Resource
 
 /**
  * [Repository testing]
@@ -56,11 +56,11 @@ class FakeRepository : ShoppingRepository {
         return observableTotalPrice
     }
 
-    override suspend fun searchForImage(imageQuery: String): NetworkResult<ImageResponse> {
+    override suspend fun searchForImage(imageQuery: String): Resource<ImageResponse> {
         return if (shouldReturnNetworkError) {
-            NetworkResult.OnFailure("Error", null)
+            Resource.OnFailure("Error", null)
         } else {
-            NetworkResult.OnSuccess(ImageResponse(listOf(), 0, 0))
+            Resource.OnSuccess(ImageResponse(listOf(), 0, 0))
         }
     }
 
