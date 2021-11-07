@@ -21,6 +21,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    /**
+     * through dagger-hilt dependencies injection,
+     * I can provide the database instance,dao instance and Retrofit api instance for dependencies injection
+     * */
+
     @Provides
     @Singleton
     fun provideShoppingItemDatabase(

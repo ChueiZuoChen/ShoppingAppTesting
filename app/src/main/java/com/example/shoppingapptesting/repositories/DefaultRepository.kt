@@ -6,7 +6,6 @@ import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.PixabayAPI
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
 import com.example.shoppingapptesting.other.NetworkResult
-import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -38,13 +37,13 @@ class DefaultRepository @Inject constructor(
             val response = pixabayAPI.searchForImage(imageQuery)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    return@let NetworkResult.Success(it)
-                } ?: NetworkResult.Failure("An unknown occurred", null)
+                    return@let NetworkResult.OnSuccess(it)
+                } ?: NetworkResult.OnFailure("An unknown occurred", null)
             } else {
-                NetworkResult.Failure("An unknown occurred", null)
+                NetworkResult.OnFailure("An unknown occurred", null)
             }
         } catch (e: Exception) {
-            NetworkResult.Failure("Cannot connection internet", null)
+            NetworkResult.OnFailure("Cannot connection internet", null)
         }
     }
 

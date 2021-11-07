@@ -58,9 +58,9 @@ class FakeRepository : ShoppingRepository {
 
     override suspend fun searchForImage(imageQuery: String): NetworkResult<ImageResponse> {
         return if (shouldReturnNetworkError) {
-            NetworkResult.Failure("Error", null)
+            NetworkResult.OnFailure("Error", null)
         } else {
-            NetworkResult.Success(ImageResponse(listOf(), 0, 0))
+            NetworkResult.OnSuccess(ImageResponse(listOf(), 0, 0))
         }
     }
 
