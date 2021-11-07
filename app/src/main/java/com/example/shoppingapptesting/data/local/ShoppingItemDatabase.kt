@@ -1,4 +1,4 @@
-package com.example.shoppingapptesting.ui.data.local
+package com.example.shoppingapptesting.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

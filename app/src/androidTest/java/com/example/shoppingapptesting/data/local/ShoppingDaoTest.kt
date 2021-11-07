@@ -6,9 +6,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.shoppingapptesting.getOrAwaitValue
-import com.example.shoppingapptesting.ui.data.local.ShoppingDao
-import com.example.shoppingapptesting.ui.data.local.ShoppingItem
-import com.example.shoppingapptesting.ui.data.local.ShoppingItemDatabase
+import com.example.shoppingapptesting.data.local.ShoppingDao
+import com.example.shoppingapptesting.data.local.ShoppingItem
+import com.example.shoppingapptesting.data.local.ShoppingItemDatabase
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 
 
 /**
+ * [ShoppingDao Testing] : for test the DAO object is working well
  * @ExperimentalCoroutinesApi - use coroutine on AndroidTest
  * @RunWith(AndroidJUnit4::class) - use AndroidJUnit4 annotation
  * @SmallTest - normal small test, not include network testing(@MediumTest)
