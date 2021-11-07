@@ -37,13 +37,13 @@ class DefaultRepository @Inject constructor(
             val response = pixabayAPI.searchForImage(imageQuery)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    return@let Resource.OnSuccess(it)
-                } ?: Resource.OnFailure("An unknown occurred", null)
+                    return@let Resource.onSuccess(it)
+                } ?: Resource.onError("An unknown occurred", null)
             } else {
-                Resource.OnFailure("An unknown occurred", null)
+                Resource.onError("An unknown occurred", null)
             }
         } catch (e: Exception) {
-            Resource.OnFailure("Cannot connection internet", null)
+            Resource.onError("Cannot connection internet", null)
         }
     }
 

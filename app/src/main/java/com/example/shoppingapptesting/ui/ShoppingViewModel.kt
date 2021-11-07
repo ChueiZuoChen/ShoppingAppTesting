@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
+import com.example.shoppingapptesting.other.Constants
 import com.example.shoppingapptesting.other.Event
 import com.example.shoppingapptesting.other.Resource
 import com.example.shoppingapptesting.repositories.ShoppingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 /**
@@ -63,11 +65,64 @@ class ShoppingViewModel @Inject constructor(
 
     /** before insert shopping item,I need to valid to input is correct */
     fun insertShoppingItem(name: String, amountString: String, priceString: String) {
-        //insert validation
+        if (name.isEmpty() || amountString.isEmpty() || priceString.isEmpty()) {
+            _insertShoppingItemStatus.postValue(
+                Event(Resource.onError("The field must not be empty", null))
+            )
+            return
+        }
+
+        if (name.length > Constants.MAX_NAME_LENGTH) {
+            _insertShoppingItemStatus.postValue(
+                Event(
+                    Resource.onError(
+                        "The name of the item must not exceed" +
+                                " ${Constants.MAX_NAME_LENGTH} characters", null
+                    )
+                )
+            )
+            return
+        }
+        if (priceString.length > Constants.MAX_PRICE_LENGTH) {
+            _insertShoppingItemStatus.postValue(
+                Event(
+                    Resource.onError(
+                        "The price of the item must not exceed" +
+                                " ${Constants.MAX_PRICE_LENGTH} characters", null
+                    )
+                )
+            )
+            return
+        }
+        val amount = try {
+            amountString.toInt()
+        } catch (e: Exception) {
+            _insertShoppingItemStatus.postValue(
+                Event(
+                    Resource.onError("The amount not valid", null)
+                )
+            )
+            return
+        }
+
+        /** it's completed validation above function*/
+        val shoppingItem =
+            ShoppingItem(1, name, amount, priceString.toFloat(), _currentImageUrl.value ?: "")
+        insertShoppingItemIntoDB(shoppingItem)
+        setCurrentImageUrl("")
+        /** set status as success to notify snack bar*/
+        _insertShoppingItemStatus.postValue(Event(Resource.onSuccess(shoppingItem)))
     }
 
-    fun searchForImage(imageQuery:String) {
-
+    fun searchForImage(imageQuery: String) {
+        if (imageQuery.isEmpty()) {
+            return
+        }
+        _image.value = Event(Resource.onLoading(null))
+        viewModelScope.launch {
+            val response = shoppingRepository.searchForImage(imageQuery)
+            _image.value = Event(response)
+        }
     }
 
 }

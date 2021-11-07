@@ -1,17 +1,18 @@
-package com.example.shoppingapptesting.repositories
+package com.example.shoppingapptesting.data.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.shoppingapptesting.data.local.ShoppingItem
 import com.example.shoppingapptesting.data.remote.responses.ImageResponse
 import com.example.shoppingapptesting.other.Resource
+import com.example.shoppingapptesting.repositories.ShoppingRepository
 
 /**
  * [Repository testing]
  * create a fake repository to testing the repository working well
  * */
 
-class FakeRepository : ShoppingRepository {
+class FakeShoppingRepository : ShoppingRepository {
 
     private val shoppingItems = mutableListOf<ShoppingItem>()
 
@@ -58,9 +59,9 @@ class FakeRepository : ShoppingRepository {
 
     override suspend fun searchForImage(imageQuery: String): Resource<ImageResponse> {
         return if (shouldReturnNetworkError) {
-            Resource.OnFailure("Error", null)
+            Resource.onError("Error", null)
         } else {
-            Resource.OnSuccess(ImageResponse(listOf(), 0, 0))
+            Resource.onSuccess(ImageResponse(listOf(), 0, 0))
         }
     }
 

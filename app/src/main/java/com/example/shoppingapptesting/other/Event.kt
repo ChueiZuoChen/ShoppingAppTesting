@@ -11,21 +11,20 @@ package com.example.shoppingapptesting.other
 class Event<out T>(
     private val content: T
 ) {
-    var hasBeenHandle = false
+    var hasBeenHandled = false
+        private set
 
     /**
      * Return the content and prevent its handle again
      * */
-    fun getContentIfNotHandle(): T? {
-        return if (hasBeenHandle) {
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
             null
         } else {
-            hasBeenHandle = true
+            hasBeenHandled = true
             content
         }
     }
 
-    fun peekContent():T?{
-        return content
-    }
+    fun peekContent() = content
 }

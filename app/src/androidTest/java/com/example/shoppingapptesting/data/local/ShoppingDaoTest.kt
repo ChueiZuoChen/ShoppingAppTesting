@@ -6,9 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.shoppingapptesting.getOrAwaitValue
-import com.example.shoppingapptesting.data.local.ShoppingDao
-import com.example.shoppingapptesting.data.local.ShoppingItem
-import com.example.shoppingapptesting.data.local.ShoppingItemDatabase
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -95,7 +92,7 @@ class ShoppingDaoTest {
     fun observeTotalPriceSum() = runBlockingTest {
         val shoppingItem1 = ShoppingItem(1, "banana", 30, 15.0f, "http://banana.jpg")
         val shoppingItem2 = ShoppingItem(2, "apple", 10, 12.5f, "http://apple.jpg")
-        val shoppingItem3 = ShoppingItem(3, "grap", 17, 3.6f, "http://grap.jpg")
+        val shoppingItem3 = ShoppingItem(3, "gg", 17, 3.6f, "http://grap.jpg")
 
         dao.insertShoppingItem(shoppingItem1)
         dao.insertShoppingItem(shoppingItem2)
