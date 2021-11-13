@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.shoppingapptesting">
+
+    <application>
+        <activity
+            android:name=".HiltTestActivity"
+            android:exported="false"/>
+        <!--
+        exported="false" means this activity only access this activity from this package here,
+         not from outside package
+
+        -->
+    </application>
+
+</manifest>
