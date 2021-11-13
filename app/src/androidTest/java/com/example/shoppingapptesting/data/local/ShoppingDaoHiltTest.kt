@@ -51,12 +51,15 @@ class ShoppingDaoHiltTest {
     }
 
 
-    @Test
-    fun testLunchFragmentHiltContainer(){
+
+
+    /**測試FragmentScenario和ActivityScenario是否將所有fragmentFactory與HiltTestActivity關聯再一起*/
+    /*@Test
+    fun testLunchFragmentHiltContainer() {
         launchFragmentInHiltContainer<ShoppingFragment> {
 
         }
-    }
+    }*/
 
     /**
      * runBlockingTest是優化過後的runBlocking{} 因為他可以忽略delay()方法直接跳過執行下一步，並且有很多例如當前時間取得等等的
