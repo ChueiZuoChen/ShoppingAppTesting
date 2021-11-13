@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "shopping_items")
 data class ShoppingItem(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int,
     var name: String,
     var amount: Int,
     var price: Float,
-    var imageUrl: String
+    var imageUrl: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int?=null
 )

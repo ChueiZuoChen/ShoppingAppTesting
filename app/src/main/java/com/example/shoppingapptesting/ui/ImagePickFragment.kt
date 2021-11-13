@@ -50,6 +50,8 @@ class ImagePickFragment @Inject constructor(
 
     }
 
+
+
     private fun setUpRecyclerView() {
         binding.rvImages.apply {
             adapter = imageAdapter

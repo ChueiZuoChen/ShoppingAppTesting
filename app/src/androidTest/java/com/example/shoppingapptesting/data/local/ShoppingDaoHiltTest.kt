@@ -69,7 +69,7 @@ class ShoppingDaoHiltTest {
      */
     @Test
     fun insertShoppingItemTest() = runBlockingTest {
-        val shoppingItem = ShoppingItem(2, "banana", 30, 1.50f, "http://banana.jpg")
+        val shoppingItem = ShoppingItem( "banana", 30, 1.50f, "http://banana.jpg",1)
         dao.insertShoppingItem(shoppingItem)
 
         /**
@@ -87,7 +87,7 @@ class ShoppingDaoHiltTest {
 
     @Test
     fun deleteShoppingItemTest() = runBlockingTest {
-        val shoppingItem = ShoppingItem(2, "banana", 30, 1.50f, "http://banana.jpg")
+        val shoppingItem = ShoppingItem( "banana", 30, 1.50f, "http://banana.jpg",1)
         dao.insertShoppingItem(shoppingItem)
         dao.deleteShoppingItem(shoppingItem)
 
@@ -99,9 +99,9 @@ class ShoppingDaoHiltTest {
 
     @Test
     fun observeTotalPriceSum() = runBlockingTest {
-        val shoppingItem1 = ShoppingItem(1, "banana", 30, 15.0f, "http://banana.jpg")
-        val shoppingItem2 = ShoppingItem(2, "apple", 10, 12.5f, "http://apple.jpg")
-        val shoppingItem3 = ShoppingItem(3, "gg", 17, 3.6f, "http://grap.jpg")
+        val shoppingItem1 = ShoppingItem( "banana", 30, 15.0f, "http://banana.jpg")
+        val shoppingItem2 = ShoppingItem( "apple", 10, 12.5f, "http://apple.jpg")
+        val shoppingItem3 = ShoppingItem( "gg", 17, 3.6f, "http://grap.jpg")
 
         dao.insertShoppingItem(shoppingItem1)
         dao.insertShoppingItem(shoppingItem2)

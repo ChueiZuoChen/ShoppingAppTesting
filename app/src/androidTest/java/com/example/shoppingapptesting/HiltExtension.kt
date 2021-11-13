@@ -14,13 +14,13 @@ const val THEME_EXTRAS_BUNDLE_KEY =
     "androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY"
 
 /**Fragment Hilt Container
- * 因為Hilt會有一個 @AndroidEntryPoint 標記，所以要建立另一外一個AndroidEntryPoint來測試
- * 首先先建立一個AndroidEntryPoint -> HiltTestActivity
- * 在launchFragmentInHiltContainer有三個參數
- * fragmentArgs : 是fragment建立時候接收的外部參數
- * themeResId : fragment的layout，在這邊用系統預設的樣板
- * fragmentFactory: FragmentFactory 負責在 Activity 和 parent Fragment 初始化 Fragment，所以應該在建立 Fragment 之前設定它。
- * */
+* 因為Hilt會有一個 @AndroidEntryPoint 標記，所以要建立另一外一個AndroidEntryPoint來測試
+* 首先先建立一個AndroidEntryPoint -> HiltTestActivity
+* 在launchFragmentInHiltContainer有三個參數
+* fragmentArgs : 是fragment建立時候接收的外部參數
+* themeResId : fragment的layout，在這邊用系統預設的樣板
+* fragmentFactory: FragmentFactory 負責在 Activity 和 parent Fragment 初始化 Fragment，所以應該在建立 Fragment 之前設定它。
+* */
 
 @ExperimentalCoroutinesApi
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
@@ -38,7 +38,7 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     ).putExtra(THEME_EXTRAS_BUNDLE_KEY, themeResId)
 
     /**啟動ActivityScenario*/
-    ActivityScenario.launch<HiltTestActivity>(mainActivityIntent).onActivity { hiltTestActivity ->
+    ActivityScenario.launch<HiltTestActivity>(mainActivityIntent).onActivity { hiltTestActivity->
         /**設置fragmentFactory 如果fragmentFactory不是null就設置hiltTestActivity的fragmentFactory*/
         fragmentFactory?.let {
             hiltTestActivity.supportFragmentManager.fragmentFactory = it

@@ -1,7 +1,6 @@
 package com.example.shoppingapptesting.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
@@ -44,6 +43,7 @@ class ImagePickFragmentTest {
     fun setUp() {
         hiltRule.inject()
     }
+
     /**測試*/
     @Test
     fun clickImage_popBackStackAndSetImageUrl() {
@@ -51,7 +51,7 @@ class ImagePickFragmentTest {
         val testImageUrl = "TEST"
         val testViewModel = ShoppingViewModel(FakeShoppingRepositoryAndroidTest())
         launchFragmentInHiltContainer<ImagePickFragment>(fragmentFactory = fragmentFactory) {
-            Navigation.setViewNavController(requireView(),navController)
+            Navigation.setViewNavController(requireView(), navController)
             imageAdapter.images = listOf(testImageUrl)
             viewModel = testViewModel
         }

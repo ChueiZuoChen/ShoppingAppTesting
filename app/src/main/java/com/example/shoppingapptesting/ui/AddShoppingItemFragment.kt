@@ -7,16 +7,22 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.shoppingapptesting.R
+import com.bumptech.glide.RequestManager
 import com.example.shoppingapptesting.databinding.FragmentAddShoppingItemBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.shoppingapptesting.other.Status
+import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
-class AddShoppingItemFragment : Fragment() {
+class AddShoppingItemFragment @Inject constructor(
+    val glide: RequestManager
+) : Fragment() {
 
     lateinit var binding: FragmentAddShoppingItemBinding
 
-    private val viewModel: ShoppingViewModel by activityViewModels()
+    lateinit var viewModel: ShoppingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +35,16 @@ class AddShoppingItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(ShoppingViewModel::class.java)
+        subscribeToObservers()
+
+        binding.btnAddShoppingItem.setOnClickListener {
+            viewModel.insertShoppingItem(
+                binding.etShoppingItemName.text.toString(),
+                binding.etShoppingItemAmount.text.toString(),
+                binding.etShoppingItemPrice.text.toString()
+            )
+        }
 
         binding.ivShoppingImage.setOnClickListener {
             findNavController().navigate(
@@ -47,4 +63,52 @@ class AddShoppingItemFragment : Fragment() {
         /**最後在activity的onBackPressDispatcher加入callback的動作*/
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
+
+    private fun subscribeToObservers() {
+        viewModel.currentImageUrl.observe(viewLifecycleOwner, Observer {
+            glide.load(it).into(binding.ivShoppingImage)
+        })
+        viewModel.insertShoppingItemStatus.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { result ->
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        Snackbar.make(
+                            requireView(),
+                            "Added Shopping Item",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        findNavController().popBackStack()
+                    }
+                    Status.ERROR -> {
+                        Snackbar.make(
+                            requireView(),
+                            result.message ?: "An Unknown error occurred",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    Status.LOADING -> {
+                        /*No operation*/
+                    }
+                }
+            }
+        })
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

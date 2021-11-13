@@ -35,7 +35,7 @@ class ShoppingViewModel @Inject constructor(
 ) : ViewModel() {
 
     val shoppingItems = shoppingRepository.observeShoppingItems()
-    val shoppingPrice = shoppingRepository.observeTotalPrice()
+    val totalPrice = shoppingRepository.observeTotalPrice()
 
     /** get image response and wrap ImageResponse data model to livedata become observable object */
     private val _image = MutableLiveData<Event<Resource<ImageResponse>>>()
@@ -59,6 +59,7 @@ class ShoppingViewModel @Inject constructor(
         shoppingRepository.deleteShoppingItem(shoppingItem)
     }
 
+    /** directly insert shopping item in to db*/
     fun insertShoppingItemIntoDB(shoppingItem: ShoppingItem) = viewModelScope.launch {
         shoppingRepository.insertShoppingItem(shoppingItem)
     }
@@ -107,7 +108,7 @@ class ShoppingViewModel @Inject constructor(
 
         /** it's completed validation above function*/
         val shoppingItem =
-            ShoppingItem(1, name, amount, priceString.toFloat(), _currentImageUrl.value ?: "")
+            ShoppingItem( name, amount, priceString.toFloat(), _currentImageUrl.value ?: "")
         insertShoppingItemIntoDB(shoppingItem)
         setCurrentImageUrl("")
         /** set status as success to notify snack bar*/
