@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Dao
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.shoppingapptesting.R
 import com.example.shoppingapptesting.data.local.ShoppingDao
 import com.example.shoppingapptesting.data.local.ShoppingItemDatabase
 import com.example.shoppingapptesting.data.remote.PixabayAPI
@@ -61,6 +64,18 @@ object AppModule {
         dao: ShoppingDao,
         api: PixabayAPI
     ) = DefaultRepository(dao, api) as ShoppingRepository
+
+
+    /**提供Glide instance並初始化預設當image = null時 顯示預設圖片*/
+    @Provides
+    @Singleton
+    fun provideGlideInstance(
+        @ApplicationContext context: Context,
+    ) = Glide.with(context).setDefaultRequestOptions(
+        RequestOptions()
+            .placeholder(R.drawable.ic_image)
+            .error(R.drawable.ic_image)
+    )
 }
 
 

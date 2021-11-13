@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 @SmallTest
 class ShoppingDaoTest {
 
-    //Rule cannot be private
+    // single task rule
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 

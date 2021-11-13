@@ -12,7 +12,6 @@ import com.example.shoppingapptesting.R
 import com.example.shoppingapptesting.databinding.FragmentAddShoppingItemBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class AddShoppingItemFragment : Fragment() {
 
     lateinit var binding: FragmentAddShoppingItemBinding
@@ -38,7 +37,7 @@ class AddShoppingItemFragment : Fragment() {
         }
 
         /**當add shoppingItem 按返回的時候再回來image會預設成上次選取的，所以必須重新設定ViewModel的url為預設空字串*/
-        val callback = object :OnBackPressedCallback(true){
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 /**重設當前的imageurl，並且pop NaviController的fragment堆疊*/
                 viewModel.setCurrentImageUrl("")

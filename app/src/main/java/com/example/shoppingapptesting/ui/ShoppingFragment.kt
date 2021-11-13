@@ -11,7 +11,6 @@ import com.example.shoppingapptesting.R
 import com.example.shoppingapptesting.databinding.FragmentShoppingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ShoppingFragment : Fragment() {
 
     /**Hilt fragment inject by activityViewModels*/

@@ -28,9 +28,11 @@ import javax.inject.Named
 @HiltAndroidTest
 class ShoppingDaoHiltTest {
 
+    // hilt injection rule
     @get:Rule
     var hiltRul = HiltAndroidRule(this)
 
+    // single task rule
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
