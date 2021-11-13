@@ -24,7 +24,7 @@ import javax.inject.Inject
 class ShoppingFragment @Inject constructor(
     val shoppingItemAdapter: ShoppingItemAdapter,
     var viewModel: ShoppingViewModel? = null
-) : Fragment() {
+) : Fragment(R.layout.fragment_shopping) {
 
     /**Hilt fragment inject by activityViewModels*/
 //    private val viewModel: ShoppingViewModel by activityViewModels()
